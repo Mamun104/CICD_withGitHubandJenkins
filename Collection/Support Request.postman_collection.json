@@ -1,0 +1,1146 @@
+{
+	"info": {
+		"_postman_id": "e04623a1-bf46-4f0a-851a-ae4254bed06a",
+		"name": "Support Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16548351"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "User Can't Login With Empty Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var JsonData = pm.response.json()\r",
+									"var token = JsonData.token\r",
+									"pm.environment.set(\"token\",token)\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 480]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									"\r",
+									"    \r",
+									"    \"error\": \"Missing email or username\"\r",
+									"};\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Check the Schema validation ', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/login",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Can't Login With invalid email and valid password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var JsonData = pm.response.json()\r",
+									"var token = JsonData.token\r",
+									"pm.environment.set(\"token\",token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eve.holt@reqres\",\r\n    \"password\": \"cityslicka\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/login",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Can't Login With valid email and invalid password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var JsonData = pm.response.json()\r",
+									"var token = JsonData.token\r",
+									"pm.environment.set(\"token\",token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/login",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Can Login With Valid Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var JsonData = pm.response.json()\r",
+									"var token = JsonData.token\r",
+									"pm.environment.set(\"token\",token)\r",
+									"//pm.collectionVariables.set(\"token\",token)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"cityslicka\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/login",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User List",
+			"item": [
+				{
+					"name": "All Users List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 290]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"/*pm.test(\"Get the user id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = jsonData.data.id;\r",
+									"    pm.collectionVariables.set(\"id\", id);\r",
+									"});\r",
+									"*/\r",
+									"\r",
+									"var schema = {\r",
+									"\r",
+									"    \r",
+									"    \r",
+									"    \"page\": 1,\r",
+									"    \"per_page\": 6,\r",
+									"    \"total\": 12,\r",
+									"    \"total_pages\": 2,\r",
+									"    \"data\": [\r",
+									"        {\r",
+									"            \"id\": 1,\r",
+									"            \"name\": \"cerulean\",\r",
+									"            \"year\": 2000,\r",
+									"            \"color\": \"#98B2D1\",\r",
+									"            \"pantone_value\": \"15-4020\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 2,\r",
+									"            \"name\": \"fuchsia rose\",\r",
+									"            \"year\": 2001,\r",
+									"            \"color\": \"#C74375\",\r",
+									"            \"pantone_value\": \"17-2031\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 3,\r",
+									"            \"name\": \"true red\",\r",
+									"            \"year\": 2002,\r",
+									"            \"color\": \"#BF1932\",\r",
+									"            \"pantone_value\": \"19-1664\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 4,\r",
+									"            \"name\": \"aqua sky\",\r",
+									"            \"year\": 2003,\r",
+									"            \"color\": \"#7BC4C4\",\r",
+									"            \"pantone_value\": \"14-4811\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 5,\r",
+									"            \"name\": \"tigerlily\",\r",
+									"            \"year\": 2004,\r",
+									"            \"color\": \"#E2583E\",\r",
+									"            \"pantone_value\": \"17-1456\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 6,\r",
+									"            \"name\": \"blue turquoise\",\r",
+									"            \"year\": 2005,\r",
+									"            \"color\": \"#53B0AE\",\r",
+									"            \"pantone_value\": \"15-5217\"\r",
+									"        }\r",
+									"    ],\r",
+									"    \"support\": {\r",
+									"        \"url\": \"https://reqres.in/#support-heading\",\r",
+									"        \"text\": \"To keep ReqRes free, contributions towards server costs are appreciated!\"\r",
+									"    }\r",
+									"};\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Check the Schema validation ', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/unknown",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"unknown"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 290]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									"\r",
+									"    \r",
+									"    \r",
+									"    \"page\": 1,\r",
+									"    \"per_page\": 6,\r",
+									"    \"total\": 12,\r",
+									"    \"total_pages\": 2,\r",
+									"    \"data\": [\r",
+									"        {\r",
+									"            \"id\": 1,\r",
+									"            \"name\": \"cerulean\",\r",
+									"            \"year\": 2000,\r",
+									"            \"color\": \"#98B2D1\",\r",
+									"            \"pantone_value\": \"15-4020\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 2,\r",
+									"            \"name\": \"fuchsia rose\",\r",
+									"            \"year\": 2001,\r",
+									"            \"color\": \"#C74375\",\r",
+									"            \"pantone_value\": \"17-2031\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 3,\r",
+									"            \"name\": \"true red\",\r",
+									"            \"year\": 2002,\r",
+									"            \"color\": \"#BF1932\",\r",
+									"            \"pantone_value\": \"19-1664\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 4,\r",
+									"            \"name\": \"aqua sky\",\r",
+									"            \"year\": 2003,\r",
+									"            \"color\": \"#7BC4C4\",\r",
+									"            \"pantone_value\": \"14-4811\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 5,\r",
+									"            \"name\": \"tigerlily\",\r",
+									"            \"year\": 2004,\r",
+									"            \"color\": \"#E2583E\",\r",
+									"            \"pantone_value\": \"17-1456\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 6,\r",
+									"            \"name\": \"blue turquoise\",\r",
+									"            \"year\": 2005,\r",
+									"            \"color\": \"#53B0AE\",\r",
+									"            \"pantone_value\": \"15-5217\"\r",
+									"        }\r",
+									"    ],\r",
+									"    \"support\": {\r",
+									"        \"url\": \"https://reqres.in/#support-heading\",\r",
+									"        \"text\": \"To keep ReqRes free, contributions towards server costs are appreciated!\"\r",
+									"    }\r",
+									"};\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Check the Schema validation ', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/users/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Can't get a user with invalid credential",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([404, 480]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/users/23",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"23"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "User Can't Create a new user with invalid credential",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 290]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Created\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									" \"name\": \"morpheus\",\r",
+									"    \"job\": \"leader\",\r",
+									"    \"id\": \"46\",\r",
+									"    \"createdAt\": \"2022-11-01T10:21:58.835Z\"\r",
+									"};\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Check the Schema validation ', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/users?page=2",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 290]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Created\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									" \"name\": \"morpheus\",\r",
+									"    \"job\": \"leader\",\r",
+									"    \"id\": \"46\",\r",
+									"    \"createdAt\": \"2022-11-01T10:21:58.835Z\"\r",
+									"};\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Check the Schema validation ', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/users?page=2",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "User can't update user with invalid credential",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 290]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									"\r",
+									"    \r",
+									"    \r",
+									"    \"page\": 1,\r",
+									"    \"per_page\": 6,\r",
+									"    \"total\": 12,\r",
+									"    \"total_pages\": 2,\r",
+									"    \"data\": [\r",
+									"        {\r",
+									"            \"id\": 1,\r",
+									"            \"name\": \"cerulean\",\r",
+									"            \"year\": 2000,\r",
+									"            \"color\": \"#98B2D1\",\r",
+									"            \"pantone_value\": \"15-4020\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 2,\r",
+									"            \"name\": \"fuchsia rose\",\r",
+									"            \"year\": 2001,\r",
+									"            \"color\": \"#C74375\",\r",
+									"            \"pantone_value\": \"17-2031\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 3,\r",
+									"            \"name\": \"true red\",\r",
+									"            \"year\": 2002,\r",
+									"            \"color\": \"#BF1932\",\r",
+									"            \"pantone_value\": \"19-1664\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 4,\r",
+									"            \"name\": \"aqua sky\",\r",
+									"            \"year\": 2003,\r",
+									"            \"color\": \"#7BC4C4\",\r",
+									"            \"pantone_value\": \"14-4811\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 5,\r",
+									"            \"name\": \"tigerlily\",\r",
+									"            \"year\": 2004,\r",
+									"            \"color\": \"#E2583E\",\r",
+									"            \"pantone_value\": \"17-1456\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 6,\r",
+									"            \"name\": \"blue turquoise\",\r",
+									"            \"year\": 2005,\r",
+									"            \"color\": \"#53B0AE\",\r",
+									"            \"pantone_value\": \"15-5217\"\r",
+									"        }\r",
+									"    ],\r",
+									"    \"support\": {\r",
+									"        \"url\": \"https://reqres.in/#support-heading\",\r",
+									"        \"text\": \"To keep ReqRes free, contributions towards server costs are appreciated!\"\r",
+									"    }\r",
+									"};\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Check the Schema validation ', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/users/4",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 290]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									"\r",
+									"    \r",
+									"    \r",
+									"    \"page\": 1,\r",
+									"    \"per_page\": 6,\r",
+									"    \"total\": 12,\r",
+									"    \"total_pages\": 2,\r",
+									"    \"data\": [\r",
+									"        {\r",
+									"            \"id\": 1,\r",
+									"            \"name\": \"cerulean\",\r",
+									"            \"year\": 2000,\r",
+									"            \"color\": \"#98B2D1\",\r",
+									"            \"pantone_value\": \"15-4020\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 2,\r",
+									"            \"name\": \"fuchsia rose\",\r",
+									"            \"year\": 2001,\r",
+									"            \"color\": \"#C74375\",\r",
+									"            \"pantone_value\": \"17-2031\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 3,\r",
+									"            \"name\": \"true red\",\r",
+									"            \"year\": 2002,\r",
+									"            \"color\": \"#BF1932\",\r",
+									"            \"pantone_value\": \"19-1664\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 4,\r",
+									"            \"name\": \"aqua sky\",\r",
+									"            \"year\": 2003,\r",
+									"            \"color\": \"#7BC4C4\",\r",
+									"            \"pantone_value\": \"14-4811\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 5,\r",
+									"            \"name\": \"tigerlily\",\r",
+									"            \"year\": 2004,\r",
+									"            \"color\": \"#E2583E\",\r",
+									"            \"pantone_value\": \"17-1456\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 6,\r",
+									"            \"name\": \"blue turquoise\",\r",
+									"            \"year\": 2005,\r",
+									"            \"color\": \"#53B0AE\",\r",
+									"            \"pantone_value\": \"15-5217\"\r",
+									"        }\r",
+									"    ],\r",
+									"    \"support\": {\r",
+									"        \"url\": \"https://reqres.in/#support-heading\",\r",
+									"        \"text\": \"To keep ReqRes free, contributions towards server costs are appreciated!\"\r",
+									"    }\r",
+									"};\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Check the Schema validation ', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/users/2",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete User",
+			"item": [
+				{
+					"name": "Delete Exit User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the header\", function () {\r",
+									"    pm.response.to.have.header(\"Connection\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time check\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the POST method request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([204, 290]);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code isNo Content\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									"\r",
+									"    \r",
+									"    \r",
+									"    \"page\": 1,\r",
+									"    \"per_page\": 6,\r",
+									"    \"total\": 12,\r",
+									"    \"total_pages\": 2,\r",
+									"    \"data\": [\r",
+									"        {\r",
+									"            \"id\": 1,\r",
+									"            \"name\": \"cerulean\",\r",
+									"            \"year\": 2000,\r",
+									"            \"color\": \"#98B2D1\",\r",
+									"            \"pantone_value\": \"15-4020\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 2,\r",
+									"            \"name\": \"fuchsia rose\",\r",
+									"            \"year\": 2001,\r",
+									"            \"color\": \"#C74375\",\r",
+									"            \"pantone_value\": \"17-2031\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 3,\r",
+									"            \"name\": \"true red\",\r",
+									"            \"year\": 2002,\r",
+									"            \"color\": \"#BF1932\",\r",
+									"            \"pantone_value\": \"19-1664\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 4,\r",
+									"            \"name\": \"aqua sky\",\r",
+									"            \"year\": 2003,\r",
+									"            \"color\": \"#7BC4C4\",\r",
+									"            \"pantone_value\": \"14-4811\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 5,\r",
+									"            \"name\": \"tigerlily\",\r",
+									"            \"year\": 2004,\r",
+									"            \"color\": \"#E2583E\",\r",
+									"            \"pantone_value\": \"17-1456\"\r",
+									"        },\r",
+									"        {\r",
+									"            \"id\": 6,\r",
+									"            \"name\": \"blue turquoise\",\r",
+									"            \"year\": 2005,\r",
+									"            \"color\": \"#53B0AE\",\r",
+									"            \"pantone_value\": \"15-5217\"\r",
+									"        }\r",
+									"    ],\r",
+									"    \"support\": {\r",
+									"        \"url\": \"https://reqres.in/#support-heading\",\r",
+									"        \"text\": \"To keep ReqRes free, contributions towards server costs are appreciated!\"\r",
+									"    }\r",
+									"};\r",
+									"var data1 = [true, false];\r",
+									"var data2 = [true, 123];\r",
+									"\r",
+									"pm.test('Check the Schema validation ', function () {\r",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+									"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/api/users/2",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "QpwL5tke4Pnpja7X4"
+		},
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
