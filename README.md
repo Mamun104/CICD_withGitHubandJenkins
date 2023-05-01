@@ -119,7 +119,7 @@ Continuous deployment should be the goal of most companies that are not constrai
 
 - Click on the Install button
 
-- After completing the installation go to the location: http://localhost:7070
+- After completing the installation go to the location: http://localhost:8080
 
 - Then unlock Jenkins
 
